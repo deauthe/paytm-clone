@@ -1,8 +1,9 @@
 import type { Metadata } from "next";
 import localFont from "next/font/local";
+import { AppBar } from "@repo/ui/appbar";
 import "./globals.css";
-import { RecoilProvider } from "../providers/RecoilProvider";
-
+import { Providers } from "../providers/providers";
+import { signIn, signOut } from "next-auth/react";
 const geistSans = localFont({
 	src: "./fonts/GeistVF.woff",
 	variable: "--font-geist-sans",
@@ -24,11 +25,12 @@ export default function RootLayout({
 }>) {
 	return (
 		<html lang="en">
-			<RecoilProvider>
+			<Providers>
+				<AppBar onSignin={signIn} onSignout={signOut} />
 				<body className={`${geistSans.variable} ${geistMono.variable}`}>
 					{children}
 				</body>
-			</RecoilProvider>
+			</Providers>
 		</html>
 	);
 }

@@ -1,0 +1,11 @@
+{
+	"extends": "@repo/typescript-config/base.json",
+	//taken from the preconfigured turboRepos tsConfig folder
+	//base.json as it's a pure backend project
+	"compilerOptions": {
+		"outDir": "dist"
+	},
+
+	"include": ["src"],
+	"exclude": ["node_modules", "dist"]
+}
