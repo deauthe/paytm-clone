@@ -1,6 +1,9 @@
 import express from "express";
 import db from "@repo/db/client";
+import cors from "cors";
+
 const app = express();
+app.use(cors());
 
 app.use(express.json());
 
@@ -27,6 +30,8 @@ app.post("/hdfcWebhook", async (req, res) => {
 					amount: {
 						// You can also get this from your DB
 						increment: Number(paymentInformation.amount),
+						//make sure to use the increment function otherise, concurrent transactions may
+						//may display unwanted results
 					},
 				},
 			}),
