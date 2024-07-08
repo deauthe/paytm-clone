@@ -1,13 +1,12 @@
-"use client";
+import { getServerSession } from "next-auth";
+import { redirect } from "next/navigation";
+import { authOptions } from "@/lib/auth";
 
-export default function Home() {
-	return (
-		<div
-			className={
-				"bg-emerald-300 h-screen w-screen flex items-center justify-center uppercase"
-			}
-		>
-			<div className="w-fit h-fit">Hello {""}</div>
-		</div>
-	);
+export default async function Page() {
+	const session = await getServerSession(authOptions);
+	if (session?.user) {
+		redirect("/dashboard");
+	} else {
+		redirect("/api/auth/signin");
+	}
 }
