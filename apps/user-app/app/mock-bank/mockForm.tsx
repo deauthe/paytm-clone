@@ -23,6 +23,10 @@ function MockForm() {
 				}),
 			});
 			const result = await res.json();
+			if (Number(result.status) >= 400) {
+				setError(result.message);
+				return;
+			}
 			console.log(result);
 			window.location.href = "/";
 		} catch (error) {
@@ -34,6 +38,7 @@ function MockForm() {
 		<div className="flex flex-col gap-5 max-w-4xl p-2 mx-auto justify-center">
 			<input
 				type="text"
+				className="p-4 place-content-center place-items-center rounded-md focus:ring-black focus:ring-2 focus:ring-opacity-25"
 				onChange={(val) => {
 					setToken(val.target.value);
 				}}
@@ -41,11 +46,13 @@ function MockForm() {
 			/>
 			<input
 				type="number"
+				className="p-4 place-content-center place-items-center rounded-md focus:ring-black focus:ring-2 focus:ring-opacity-25"
 				placeholder="amount"
 				onChange={(val) => setAmount(Number(val.target.value))}
 			/>
 			<input
 				type="text"
+				className="p-4 place-content-center place-items-center rounded-md focus:ring-black focus:ring-2 focus:ring-opacity-25"
 				placeholder="user identifier"
 				onChange={(val) => setUserIdentifier(val.target.value)}
 			/>
@@ -55,6 +62,12 @@ function MockForm() {
 			>
 				mock webHook
 			</Button>{" "}
+			{error && <p className="text-red-500">{error}</p>}
+			<p className="text-red-500 opacity-80">
+				{" "}
+				{`doing this means that you are authorising the payment on the bank's behalf and telling it to the merchant app that
+				 the user has paid and you can allow access to the features you promised for for the respectiove payment !`}
+			</p>
 		</div>
 	);
 }

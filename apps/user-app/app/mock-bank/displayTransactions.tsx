@@ -1,3 +1,4 @@
+"use server";
 import prisma from "@repo/db/client";
 import { getServerSession } from "next-auth";
 import { redirect } from "next/navigation";
@@ -16,11 +17,11 @@ const Transactions = async (props: Props) => {
 			userId: Number(session.user.id),
 		},
 		orderBy: {
-			startTime: "asc",
+			startTime: "desc",
 		},
 	});
 	return (
-		<div className="max-w-5xl mx-auto flex flex-col gap-3 p-4 rounded-3xl bg-black text-white">
+		<div className="max-w-8xl mx-auto flex flex-col gap-3 p-4 rounded-3xl bg-black text-white overflow-y-auto max-h-96 lg:max-h-screen">
 			<div className="font-bold mx-auto w-fit">Transactions</div>
 			<hr />
 			<div className="flex flex-col gap-2">
@@ -28,22 +29,25 @@ const Transactions = async (props: Props) => {
 					transactions.map((item, index) => {
 						return (
 							<div className="w-full flex flex-col gap-1">
-								<div className="w-max grid grid-cols-3 " key={index}>
-									<div className="mx-auto">{item.token}</div>
-									<div className="mx-auto">{item.amount}</div>
-									<div className="mx-auto">{item.userId}</div>
-									<div className="mx-auto">
-										{item.startTime.toLocaleTimeString()}
+								<div
+									className="w-max flex flex-col gap-2 text-left "
+									key={index}
+								>
+									<div className="">{"item token : " + item.token}</div>
+									<div className="">{"item amount : " + item.amount}</div>
+									<div className="">{"user id : " + item.userId}</div>
+									<div className="">
+										{"initiation time : " + item.startTime.toLocaleTimeString()}
 									</div>
 									<div
-										className={`mx-auto font-bold uppercase ${item.status === "Success" && "text-green-500"}
+										className={`font-bold uppercase ${item.status === "Success" && "text-green-500"}
                                     ${item.status === "Failure" && "text-red-500"}
                                     ${item.status === "Processing" && "text-yellow-500"}`}
 									>
 										{item.status}
 									</div>
 								</div>
-								<hr />
+								<hr className="opacity-40" />
 							</div>
 						);
 					})}

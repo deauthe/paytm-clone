@@ -84,3 +84,7 @@ Learn more about the power of Turborepo:
 
 docker run -e POSTGRES_PASSWORD=password -d -p 5432:5432 postgres
 change .env in packages/db
+run "npx prisma generate" in packages/db
+run "npx prisma migrate dev --dev" in packages/db
+run "npx prisma db push" in packages/db
+run "npx prisma db seed" in packages/db

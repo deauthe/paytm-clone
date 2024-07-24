@@ -45,9 +45,15 @@ app.post("/hdfcWebhook", async (req, res) => {
 			}),
 		]);
 
-		res.json({
+		res.status(200).json({
 			message: "Captured",
 		});
+		//what you send back is really important here as this route would be used by
+		//bank agents to tell you that the payment has been successfull. And this route is basically
+		//letting the user who has paid use you services.
+		//now if any of the transactions fail, you need to tell the bank that it happened
+		//so that they can refund the user.
+		//we tell the bank so by sending a 411 status code as below
 	} catch (e) {
 		console.error(e);
 		res.status(411).json({

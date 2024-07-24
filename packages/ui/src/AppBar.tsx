@@ -11,7 +11,7 @@ interface AppbarProps {
 
 export const AppBar = ({ user, onSignin, onSignout }: AppbarProps) => {
 	return (
-		<div className="flex justify-between border-b px-4">
+		<div className="flex justify-between border-black border-opacity-30 px-4 bg-white p-2 border-b-[1px] ">
 			<div className="text-lg flex flex-col justify-center font-extrabold">
 				PayTM
 			</div>
